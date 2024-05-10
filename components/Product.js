@@ -18,7 +18,14 @@ const Buy = ({
                     <View style={{ width: '50%' }}>
                         <Text style={GlobalStyles.h2}>{productName}</Text>
                         <Text style={styles.content}>{productContent}</Text>
-                        <Text style={{ alignSelf: 'flex-end' }}>{productPrice}원</Text>
+                        <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent:'flex-end' }}>
+                            <Image
+                                style={styles.points}
+                                source={require('../assets/garden/coin.png')}
+                            />
+                            <Text style={{ alignSelf: 'flex-end', color: Color.yellow_700, marginBottom: 3 }}>{productPrice}</Text>
+
+                        </View>
                     </View>
                 </View>
                 <View
@@ -46,7 +53,13 @@ const styles = StyleSheet.create({
     content: {
         fontFamily: FontFamily.robotoMedium,
         color: Color.gray,
-    }
+    },
+    points: {
+        marginVertical: 3,
+        marginRight: 10,
+        width: 15,
+        height: 15,
+    },
 });
 
 export default Buy;
