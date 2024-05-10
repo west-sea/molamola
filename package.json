@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/config": "^9.0.0",
     "@expo/metro-config": "^0.18.1",
+    "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
     "crypto": "^1.0.1",

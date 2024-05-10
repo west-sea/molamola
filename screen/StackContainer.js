@@ -4,15 +4,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./Login";
 import Home from "./Home";
+import Challenges from "./Challenges";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <Stack.Navigator>
-      {/* <Stack.Screen name="Login" component={Login} options={{headerShown: false,}}/> */}
-      <Stack.Screen name="Home" component={Home} options={{headerShown: false,}}/>
-      
-    </Stack.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Login" component={Login} options={{headerShown: false,}}/> 
+      <Tab.Screen name="Home" component={Home} options={{ headerShown: false, }} />
+      <Tab.Screen name="Challenges" component={Challenges} options={{ headerShown: false, }} />
+    </Tab.Navigator>
+    
   );
 }
