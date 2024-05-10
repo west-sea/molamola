@@ -9,12 +9,15 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
+    TextInput,
 } from 'react-native';
 import { useState } from 'react';
 import {
     LineChart
 } from "react-native-chart-kit";
 import { Border, Color, GlobalStyles, FontFamily } from '../GlobalStyle';
+import { GlobalContext } from '../global';
+import React, { createContext, useContext } from 'react';
 // import YellowButton from '../components/YellowButton';
 
 import { EnergyInput } from '../components/EnergyInput';
@@ -25,9 +28,13 @@ const whiteBoxHeight = height * 0.3;
 const ddimage = require('../assets/garden/circle_garden.png')
 
 function Statistics({ navigation }) {
+    const [inputValue, setInputValue] = useState('');
+    const { elec, water, gas, setElec, setWater, setGas } = useContext(GlobalContext); 
 
     const [elecvisible, setElecVisible] = useState(false);
-    const toggleElecOverlay = () => { setElecVisible(!elecvisible); };
+    const toggleElecOverlay = () => {
+        setElecVisible(!elecvisible);
+    };
 
     const [watervisible, setWaterVisible] = useState(false);
     const toggleWaterOverlay = () => { setWaterVisible(!watervisible); };
@@ -37,10 +44,115 @@ function Statistics({ navigation }) {
 
     return (
         <View style={styles.container}>
-            {elecvisible && (<EnergyInput EnergyInput={'전력'}/>)}
-            {watervisible && (<EnergyInput EnergyInput={'수도'}/>)}
-            {gasvisible && (<EnergyInput EnergyInput={'가스'}/>)}
-
+            {elecvisible && (
+                <View style={styles.overlay}>
+                    <View style={{ width: '100%', height: '100%', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        <TextInput
+                            style={{ ...GlobalStyles.h2, textAlign: 'center' }}
+                            placeholder="사용량"
+                            onChangeText={setInputValue}
+                            autoCapitalize="none"
+                        />
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ padding: 20, }} 
+                            onPress={() => {
+                                // inputValue를 숫자로 변환 (입력값이 문자열일 가능성이 있으므로)
+                                const numericInputValue = Number(inputValue);
+                            
+                                // 입력값이 100을 초과하는지 확인
+                                if (numericInputValue < 100) {
+                                  setElec(false);
+                                } else {
+                                  setElec(true);
+                                }
+                              }}
+                            >
+                                <Text style={{ ...GlobalStyles.h2, color: Color.yellow_700 }}>
+                                    입력
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ padding: 20 }} onPress={toggleElecOverlay}>
+                                <Text style={{ ...GlobalStyles.h2, color: Color.gray }}>
+                                    취소
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
+            {watervisible && (
+                <View style={styles.overlay}>
+                    <View style={{ width: '100%', height: '100%', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        <TextInput
+                            style={{ ...GlobalStyles.h2, textAlign: 'center' }}
+                            placeholder="사용량"
+                            autoCapitalize="none"
+                            onChangeText={setInputValue}
+                        />
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ padding: 20, }}>
+                                <Text style={{ ...GlobalStyles.h2, color: Color.yellow_700 }}
+                                onPress={() => {
+                                    // inputValue를 숫자로 변환 (입력값이 문자열일 
+                                    const numericInputValue = Number(inputValue);
+                                                            
+                                    // 입력값이 100을 초과하는지 확인
+                                    if (numericInputValue < 100) {
+                                      setWater(false);
+                                    } else {
+                                      setWater(true);
+                                    }
+                                  }}
+                                >
+                                    입력
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ padding: 20 }} onPress={toggleWaterOverlay}>
+                                <Text style={{ ...GlobalStyles.h2, color: Color.gray }}>
+                                    취소
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
+            {gasvisible && (
+                <View style={styles.overlay}>
+                    <View style={{ width: '100%', height: '100%', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        <TextInput
+                            style={{ ...GlobalStyles.h2, textAlign: 'center' }}
+                            placeholder="사용량"
+                            autoCapitalize="none"
+                            onChangeText={setInputValue}
+                        />
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ padding: 20, }}>
+                                <Text style={{ ...GlobalStyles.h2, color: Color.yellow_700 }}
+                                onPress={() => {
+                                    // inputValue를 숫자로 변환 (입력값이 문자열일
+                                    const numericInputValue = Number(inputValue);
+                                                            
+                                    // 입력값이 100을 초과하는지 확인
+                                    if (numericInputValue < 100) {
+                                      setGas(false);
+                                    } else {
+                                      setGas(true);
+                                    }
+                                    //toggleGasOverlay();
+                                  } }
+                                >
+                                    입력
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ padding: 20 }} onPress={toggleGasOverlay}>
+                                <Text style={{ ...GlobalStyles.h2, color: Color.gray }}>
+                                    취소
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
             <ScrollView
                 style={{
                     ...GlobalStyles.scroll,
@@ -149,9 +261,9 @@ function Statistics({ navigation }) {
                 </View>
                 <TouchableOpacity style={{ alignSelf: 'flex-end', marginRight: 20 }}>
                     <Text style={styles.content} onPress={
-                    () => {
-                        toggleWaterOverlay();
-                    }}>인증하기</Text>
+                        () => {
+                            toggleWaterOverlay();
+                        }}>인증하기</Text>
                 </TouchableOpacity>
 
                 <Text style={{ ...GlobalStyles.h2, marginLeft: 20 }}>가스</Text>
@@ -246,6 +358,13 @@ const styles = StyleSheet.create({
     content: {
         fontFamily: FontFamily.robotoMedium,
         color: Color.gray,
+    },
+    overlay: {
+        width: width,
+        height: height,
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'centers'
     }
 });
 

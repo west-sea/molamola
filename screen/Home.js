@@ -5,11 +5,13 @@ import {
     SafeAreaView,
     ScrollView,
     Button,
+    Modal,
     TouchableOpacity,
     ImageBackground,
     StyleSheet,
     Dimensions
 } from 'react-native';
+import Item from '../components/Item';
 import { Color, GlobalStyles } from '../GlobalStyle';
 import { GlobalContext } from '../global';
 import React, { createContext, useContext, useState } from 'react';
@@ -20,9 +22,51 @@ const { width, height } = Dimensions.get('window');
 const whiteBoxHeight = height * 0.3;
 
 
-function Home({navigation}) {
-    const { mileage, setMileage } = useContext(GlobalContext); 
-    
+
+function Home({ navigation }) {
+    const dummyDataList = [
+        {
+            facilityImage: require('../assets/props/ivy.png'), // 이미지 경로 설정
+            facilityName: '덩굴',
+            seedPrice: '40',
+        },
+        {
+            facilityImage: require('../assets/props/bicycle.png'), // 이미지 경로 설정
+            facilityName: '자전거',
+            seedPrice: '35',
+        },
+        {
+            facilityImage: require('../assets/props/light.png'), // 이미지 경로 설정
+            facilityName: '전구 장식',
+            seedPrice: '30',
+        },
+        {
+            facilityImage: require('../assets/props/wind.png'), // 이미지 경로 설정
+            facilityName: '바람개비',
+            seedPrice: '30',
+        },
+        {
+            facilityImage: require('../assets/props/gnomes.png'), // 이미지 경로 설정
+            facilityName: '정원 노움',
+            seedPrice: '40',
+        },
+    ];
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const { mileage, setMileage } = useContext(GlobalContext);
+    const { elec, setElec } = useContext(GlobalContext);
+    const { water, setWater } = useContext(GlobalContext);
+    const { gas, setGas } = useContext(GlobalContext);
+    const { tree, setTree } = useContext(GlobalContext);
+
+    const handleModalClick = () => {
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
+
     const renderSprouts = () => {
         const sproutNumber = mileage;
         const sprouts = [];
@@ -44,10 +88,7 @@ function Home({navigation}) {
         }
         return sprouts;
     };
-    
-    const goProp = () => {
-        navigation.navigate('Prop'); // Prop 화면으로 이동
-    };
+
 
     return (
         <View style={styles.container}>
@@ -90,25 +131,107 @@ function Home({navigation}) {
                     </ImageBackground>
                 </ImageBackground>
             </ImageBackground> */}
+            {
+                !elec && (
+                    (<Image
+                        style={styles.imageBackground}
+                        source={require('../assets/garden/elec_safe.png')}
+                        resizeMode='cover' />)
+                )
+            }
+            {elec &&
+                (<Image
+                    style={styles.imageBackground}
+                    source={require('../assets/garden/elec_danger.png')}
+                    resizeMode='cover' />)}
+            {!water &&
+                (<Image
+                    style={styles.waterImage}
+                    source={require('../assets/garden/water_safe.png')}
+                    resizeMode='contain' />)
+            }
+            {water &&
+                (<Image
+                    style={styles.waterImage}
+                    source={require('../assets/garden/water_danger.png')}
+                    resizeMode='contain' />)
+            }
 
-            <Image
-                style={styles.imageBackground}
-                source={require('../assets/garden/elec_safe.png')}
-                resizeMode='cover' />
-            <Image
-                style={styles.waterImage}
-                source={require('../assets/garden/water_safe.png')}
-                resizeMode='contain' />
-            <Image
-                style={styles.treeImage}
-                source={require('../assets/garden/tree8.png')}
-                resizeMode='contain' />
-            <Image
-                style={styles.foilImage}
-                source={require('../assets/garden/gas_safe.png')}
-                resizeMode='contain' />
+
+            {(tree == 0) &&
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree1.png')}
+                    resizeMode='contain' />
+            }
+
+            {(tree == 1) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree2.png')}
+                    resizeMode='contain' />
+            }
+            {(tree == 2) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree3.png')}
+                    resizeMode='contain' />
+            }
+            {(tree == 3) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree4.png')}
+                    resizeMode='contain' />
+            }
+            {(tree == 4) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree5.png')}
+                    resizeMode='contain' />
+            }
+            {(tree == 5) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree6.png')}
+                    resizeMode='contain' />
+            }
+            {(tree == 6) &&
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree7.png')}
+                    resizeMode='contain' />
+            }
+            {
+
+                <Image
+                    style={styles.treeImage}
+                    source={require('../assets/garden/tree8.png')}
+                    resizeMode='contain' />
+            }
+
+            {
+                !gas &&
+                (<Image
+                    style={styles.foilImage}
+                    source={require('../assets/garden/gas_safe.png')}
+                    resizeMode='contain' />)
+            }
+            {
+                gas &&
+                (<Image
+                    style={styles.foilImage}
+                    source={require('../assets/garden/gas_danger.png')}
+                    resizeMode='contain' />)
+            }
+
             <View style={[styles.whiteBox, { height: whiteBoxHeight }]}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                     <View style={{ flexDirection: 'row' }}>
                         {renderSprouts()}
                     </View>
@@ -137,7 +260,7 @@ function Home({navigation}) {
                 <TouchableOpacity
                     style={styles.nutrient}
                     onPress={() => setMileage(mileage - 1)}
-                
+
                 >
                     <Image
                         style={styles.points}
@@ -154,12 +277,40 @@ function Home({navigation}) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.green}
-                        onPress={goProp}
+                        onPress={handleModalClick}
                     >
                         <Text style={styles.buttonText}>소품샵</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <Modal
+                visible={modalVisible}
+                transparent={true}
+                onRequestClose={handleCloseModal}
+            >
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <TouchableOpacity onPress={handleCloseModal}>
+                            <Text style={styles.backButton}>{'< 뒤로'}</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.screenTitle}>소품샵</Text>
+                    </View>
+
+                    <ScrollView style={styles.container}
+                        vertical
+                        showsVerticalScrollIndicator={false}>
+                        {dummyDataList.map((item, index) => (
+                            <Item
+                                key={index}
+                                facilityImage={item.facilityImage}
+                                facilityName={item.facilityName}
+                                seedPrice={item.seedPrice}
+                            />
+                        ))}
+                    </ScrollView>
+                </View>
+            </Modal>
         </View>
     );
 };

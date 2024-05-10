@@ -8,9 +8,15 @@ const GlobalContext = createContext();
 function GlobalProvider({ children }) {
   const [mileage, setMileage] = useState(0);  // 초기 mileage 값은 0
   const [point, setPoint] = useState(0);      // 초기 point 값은 0
+  const [elec, setElec] = useState(true);
+  const [water, setWater] = useState(true);
+  const [gas, setGas] = useState(true);
+  const [tree, setTree] = useState(0);
+
+
 
   return (
-    <GlobalContext.Provider value={{ mileage, setMileage, point, setPoint }}>
+    <GlobalContext.Provider value={{ mileage, setMileage, point, setPoint, elec, setElec, water, setWater,  gas, setGas}}>
       {children}
     </GlobalContext.Provider>
   );
