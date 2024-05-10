@@ -5,17 +5,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import StackContainer from "./screen/StackContainer";
 import { Color } from "./GlobalStyle";
+import { GlobalProvider } from "./global";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <GlobalProvider>
     <GestureHandlerRootView>
 
       <NavigationContainer style={styles.safeArea}>
         <StackContainer />
       </NavigationContainer>
     </GestureHandlerRootView>
+    </GlobalProvider>
   );
 }
 
