@@ -14,6 +14,8 @@ import {
 import Item from '../components/Item';
 import { useState } from 'react';
 import { Color, GlobalStyles } from '../GlobalStyle';
+import { GlobalContext } from '../global';
+import React, { createContext, useContext, useState } from 'react';
 // import YellowButton from '../components/YellowButton';
 
 
@@ -51,6 +53,7 @@ function Home({navigation}) {
       ];
 
     const [modalVisible, setModalVisible] = useState(false);
+    const { mileage, setMileage } = useContext(GlobalContext); 
     
     const handleModalClick = () => {
         setModalVisible(true);
@@ -61,7 +64,7 @@ function Home({navigation}) {
       };
 
     const renderSprouts = () => {
-        const sproutNumber = 3;
+        const sproutNumber = mileage;
         const sprouts = [];
         for (let i = 0; i < sproutNumber; i++) {
             sprouts.push(
@@ -160,7 +163,7 @@ function Home({navigation}) {
                                 style={styles.points}
                                 source={require('../assets/garden/sprout.png')} />
                             <Text >
-                                10
+                                {mileage}
                             </Text>
                         </View>
                     </View>
@@ -170,7 +173,8 @@ function Home({navigation}) {
 
                 <TouchableOpacity
                     style={styles.nutrient}
-                // onPress={handlePress}
+                    onPress={() => setMileage(mileage - 1)}
+                
                 >
                     <Image
                         style={styles.points}

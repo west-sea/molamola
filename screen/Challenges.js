@@ -11,6 +11,8 @@ import {
     Dimensions
 } from 'react-native';
 import { Border, Color, GlobalStyles } from '../GlobalStyle';
+import { GlobalContext } from '../global';
+import React, { createContext, useContext, useState } from 'react';
 // import YellowButton from '../components/YellowButton';
 
 import Buy from '../components/Product';
@@ -21,12 +23,16 @@ const whiteBoxHeight = height * 0.3;
 const ddimage = require('../assets/garden/circle_garden.png')
 
 function Challenges({ navigation }) {
+    //console.log("mileage before")
+    const { mileage, setMileage } = useContext(GlobalContext); 
+    //console.log("mileage pass")
+
     return (
         <View style={styles.container}>
             <Text style={{ ...GlobalStyles.h1, marginTop: 15 }}>새싹얻기</Text>
             <Text style={{ ...GlobalStyles.h2, marginLeft: 20 }}>인증하기</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 16 }}>
-                <TouchableOpacity style={styles.squareButton}>
+                <TouchableOpacity style={styles.squareButton} onPress={() => setMileage(mileage + 1)}>
                     <Image
                         style={styles.squareButtonImage}
                         source={require('../assets/challenges/bus.png')} />
@@ -37,7 +43,7 @@ function Challenges({ navigation }) {
                         <Text style={styles.squareButtonText}>1</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.squareButton}>
+                <TouchableOpacity style={styles.squareButton} onPress={() => setMileage(mileage + 1)}>
                     <Image
                         style={styles.squareButtonImage}
                         source={require('../assets/challenges/shoe.png')} />
@@ -48,7 +54,7 @@ function Challenges({ navigation }) {
                         <Text style={styles.squareButtonText}>1</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.squareButton}>
+                <TouchableOpacity style={styles.squareButton} onPress={() => setMileage(mileage + 5)}>
                     <Image
                         style={styles.squareButtonImage}
                         source={require('../assets/challenges/recycle.png')} />
