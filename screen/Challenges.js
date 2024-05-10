@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         width: width,
-        height: height,
+        height: '100%',
         backgroundColor: Color.white,
     },
     squareButton: {

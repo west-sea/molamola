@@ -17,7 +17,9 @@ import { Color, GlobalStyles } from '../GlobalStyle';
 const { width, height } = Dimensions.get('window');
 const whiteBoxHeight = height * 0.3;
 
-function Home({ navigation }) {
+
+function Home({navigation}) {
+    
     const renderSprouts = () => {
         const sproutNumber = 3;
         const sprouts = [];
@@ -38,6 +40,10 @@ function Home({ navigation }) {
             );
         }
         return sprouts;
+    };
+    
+    const goProp = () => {
+        navigation.navigate('Prop'); // Prop 화면으로 이동
     };
 
     return (
@@ -144,7 +150,7 @@ function Home({ navigation }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.green}
-                    // onPress={handlePress}
+                        onPress={goProp}
                     >
                         <Text style={styles.buttonText}>소품샵</Text>
                     </TouchableOpacity>
