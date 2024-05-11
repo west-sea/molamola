@@ -29,7 +29,7 @@ const ddimage = require('../assets/garden/circle_garden.png')
 
 function Statistics({ navigation }) {
     const [inputValue, setInputValue] = useState('');
-    const { elec, water, gas, setElec, setWater, setGas } = useContext(GlobalContext); 
+    const { elec, water, gas, setElec, setWater, setGas, elec5,elec7,elec9,elec3,elec11, trees, setTree} = useContext(GlobalContext); 
 
     const [elecvisible, setElecVisible] = useState(false);
     const toggleElecOverlay = () => {
@@ -58,12 +58,15 @@ function Statistics({ navigation }) {
                             onPress={() => {
                                 // inputValue를 숫자로 변환 (입력값이 문자열일 가능성이 있으므로)
                                 const numericInputValue = Number(inputValue);
-                            
+                                
                                 // 입력값이 100을 초과하는지 확인
                                 if (numericInputValue < 100) {
                                   setElec(false);
+                                  setTree(trees + 1);
                                 } else {
                                   setElec(true);
+                                  setTree(trees + 1);
+
                                 }
                               }}
                             >
@@ -99,8 +102,12 @@ function Statistics({ navigation }) {
                                     // 입력값이 100을 초과하는지 확인
                                     if (numericInputValue < 100) {
                                       setWater(false);
+                                      setTree(trees + 1);
+
                                     } else {
                                       setWater(true);
+                                      setTree(trees + 1);
+
                                     }
                                   }}
                                 >
@@ -135,8 +142,12 @@ function Statistics({ navigation }) {
                                     // 입력값이 100을 초과하는지 확인
                                     if (numericInputValue < 100) {
                                       setGas(false);
+                                      setTree(trees + 1);
+
                                     } else {
                                       setGas(true);
+                                      setTree(trees + 1);
+
                                     }
                                     //toggleGasOverlay();
                                   } }

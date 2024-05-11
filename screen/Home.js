@@ -57,10 +57,16 @@ function Home({ navigation }) {
     const { elec, setElec } = useContext(GlobalContext);
     const { water, setWater } = useContext(GlobalContext);
     const { gas, setGas } = useContext(GlobalContext);
-    const { tree, setTree } = useContext(GlobalContext);
+    const { trees, setTree } = useContext(GlobalContext);
+    const {buy, setBuy} = useContext(GlobalContext);
+
+    console.log("trees");
+
+    console.log({trees});
 
     const handleModalClick = () => {
         setModalVisible(true);
+        setBuy(true);
     };
 
     const handleCloseModal = () => {
@@ -131,6 +137,12 @@ function Home({ navigation }) {
                     </ImageBackground>
                 </ImageBackground>
             </ImageBackground> */}
+            {buy &&
+                (<Image
+                    style={styles.imageBackground}
+                    source={require('../assets/props/ivy.png')}
+                    resizeMode='contain' />)
+            }
             {
                 !elec && (
                     (<Image
@@ -158,56 +170,56 @@ function Home({ navigation }) {
             }
 
 
-            {(tree == 0) &&
+            {(trees == 0) &&
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree1.png')}
                     resizeMode='contain' />
             }
 
-            {(tree == 1) &&
+            {(trees == 1) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree2.png')}
                     resizeMode='contain' />
             }
-            {(tree == 2) &&
+            {(trees == 2) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree3.png')}
                     resizeMode='contain' />
             }
-            {(tree == 3) &&
+            {(trees == 3) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree4.png')}
                     resizeMode='contain' />
             }
-            {(tree == 4) &&
+            {(trees == 4) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree5.png')}
                     resizeMode='contain' />
             }
-            {(tree == 5) &&
+            {(trees == 5) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree6.png')}
                     resizeMode='contain' />
             }
-            {(tree == 6) &&
+            {(trees == 6) &&
 
                 <Image
                     style={styles.treeImage}
                     source={require('../assets/garden/tree7.png')}
                     resizeMode='contain' />
             }
-            {
+            {(trees >= 7) &&
 
                 <Image
                     style={styles.treeImage}
